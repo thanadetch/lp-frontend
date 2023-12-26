@@ -22,7 +22,7 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
 
     return (
         <Card
-            className={"w-full overflow-hidden shadow-md"}
+            className={"w-full overflow-hidden shadow-md hover:cursor-pointer hover:scale-105 transition duration-300"}
             bodyStyle={{
                 background: "rgba(17, 24, 39, 0.01)"
             }}
