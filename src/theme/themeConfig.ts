@@ -5,6 +5,11 @@ const theme: ThemeConfig = {
         colorPrimary: '#F21F1F',
         fontFamily: 'var(--font-inter)'
     },
+    components: {
+        Carousel: {
+            colorBgContainer: 'var(--primary-main)'
+        }
+    }
 };
 
 export default theme;
