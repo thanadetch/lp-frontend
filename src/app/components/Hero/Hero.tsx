@@ -37,12 +37,12 @@ export const Hero = () => {
             </div>
             <div className={"flex flex-col justify-center items-center p-8 gap-4"}>
                 <p className={"max-w-6xl text-2xl text-center"}>
-                    Unlock Thailand's Prime Real Estate with Life Property! Your gateway to dream properties -
+                    Unlock Thailand&apos;s Prime Real Estate with Life Property! Your gateway to dream properties -
                     residential
                     or commercial. Tap into our local expertise and vast network for the best deals.
                 </p>
                 <p className={"max-w-6xl text-2xl font-semibold text-center"}>
-                    Let's turn your property dreams into reality!
+                    Let&apos;s turn your property dreams into reality!
                 </p>
             </div>
         </>
