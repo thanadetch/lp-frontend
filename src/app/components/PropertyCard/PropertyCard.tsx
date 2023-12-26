@@ -31,7 +31,7 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
                     <Carousel className={"h-[240px] md:h-[310px]"} afterChange={onChange}>
                         {item?.images?.data?.map((image, index) => (
                             <div key={image.id} className={"relative w-full h-[240px] md:h-[310px]"}>
-                                <Image src={getImageUrl(image.attributes.formats.medium.url)} alt={"logo"} fill
+                                <Image src={getImageUrl(image.attributes?.url)} alt={"logo"} fill
                                        className={"object-cover"}/>
                             </div>
                         ))}
