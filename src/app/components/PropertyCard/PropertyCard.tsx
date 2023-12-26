@@ -22,7 +22,7 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
 
     return (
         <Card
-            className={"w-full overflow-hidden"}
+            className={"w-full overflow-hidden shadow-md"}
             bodyStyle={{
                 background: "rgba(17, 24, 39, 0.01)"
             }}
