@@ -7,16 +7,15 @@ export const Hero = () => {
     const items: TabsProps["items"] = [
         {
             key: "1",
-            label: "Buy",
-            children: <SearchProperty/>
+            label: "Rent",
+            children: <SearchProperty type={'rentals'}/>
         },
         {
             key: "2",
-            label: "Rent",
-            children: <SearchProperty/>
+            label: "Buy",
+            children: <SearchProperty type={'sales'}/>
         },
     ];
-
 
     return (
         <>

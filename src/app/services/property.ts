@@ -10,15 +10,19 @@ const getProperties = (filter: PropertiesFilters, pagination: Pagination) => {
     return baseAxios.get<CommonResponses<Property>>(baseUrl, {
         params: {
             filters: {
-                subCode: {
-                    code: {
-                        codeId: {
-                            $eq: filter.codeId
+                $and: [
+                    filter?.codeId ? {
+                        subCode: {
+                            code: {
+                                codeId: {
+                                    $eq: filter.codeId
+                                }
+                            }
                         }
-                    }
-                }
+                    } : null
+                ]
             },
-            populate: ['subCode', 'subCode.code', 'images'],
+            populate: ["subCode", "subCode.code", "images"],
             pagination
         },
     });

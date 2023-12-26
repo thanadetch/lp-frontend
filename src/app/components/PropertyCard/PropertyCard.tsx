@@ -32,6 +32,9 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
                         {item?.images?.data?.map((image, index) => (
                             <div key={image.id} className={"relative w-full h-[240px] md:h-[310px]"}>
                                 <Image src={image.attributes?.url} alt={"logo"} fill
+                                       placeholder={'blur'}
+                                       sizes={"100%"}
+                                       blurDataURL={image.attributes.formats?.thumbnail?.url}
                                        className={"object-cover"}/>
                             </div>
                         ))}

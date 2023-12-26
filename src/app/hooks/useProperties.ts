@@ -4,7 +4,7 @@ import {Pagination} from "@/app/types/pagination";
 import useSWRImmutable from "swr/immutable";
 
 export interface PropertiesFilters {
-    codeId: string,
+    codeId?: string,
     type: string
 }
 

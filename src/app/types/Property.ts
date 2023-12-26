@@ -1,7 +1,6 @@
 import {SubCode} from "@/app/types/code";
 import {CommonResponse, CommonResponses, Images} from "@/app/types/strapi";
 
-
 export interface Property {
     name: string;
     bed: number;

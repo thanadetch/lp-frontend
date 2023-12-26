@@ -7,12 +7,14 @@ import {Property} from "@/app/types/Property";
 import {getProperties} from "@/app/services/property";
 
 interface PropertyListProps {
-    codeId: string,
+    codeId?: string,
     type: string,
     local: string,
 }
 
 export const PropertyList = ({codeId, type}: PropertyListProps) => {
+    console.log(codeId);
+    console.log(type);
     const [pagination, setPagination] = useState<Pagination>({
         page: 1,
         pageSize: 10
