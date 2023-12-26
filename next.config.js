@@ -1,4 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const withNextIntl = require('next-intl/plugin')();
 
-module.exports = nextConfig
+module.exports = withNextIntl({
+    // Other Next.js configuration ...
+    reactStrictMode: false,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '1337',
+            },
+            {
+                protocol: 'https',
+                hostname: 'lifre-property-cms.onrender.com',
+                port: '',
+            },
+        ],
+    },
+});
