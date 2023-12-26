@@ -15,6 +15,11 @@ module.exports = withNextIntl({
                 hostname: 'lifre-property-cms.onrender.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+                port: '',
+            },
         ],
     },
 });
