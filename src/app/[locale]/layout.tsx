@@ -5,7 +5,7 @@ import {notFound} from "next/navigation";
 import AntdRegistry from "@/lib/AntdRegistry";
 import {Footer} from "@/app/components/Footer/Footer";
 import theme from "@/theme/themeConfig";
-import {Button, ConfigProvider} from "antd";
+import {ConfigProvider} from "antd";
 import React from "react";
 import {NavBar} from "../components/NavBar/NavBar";
 

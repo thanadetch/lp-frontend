@@ -1,12 +1,32 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
     --primary-main: #F21F1F;
     /*--foreground-rgb: 0, 0, 0;*/
     /*--background-start-rgb: 214, 219, 220;*/
     /*--background-end-rgb: 255, 255, 255;*/
+}
+
+.image-gallery-icon:hover {
+    color: var(--primary-main);
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:focus,
+.image-gallery-thumbnail:hover {
+    border-color: var(--primary-main);
+}
+
+.image-gallery-bullets .image-gallery-bullet.active:hover {
+    background: var(--primary-main);
+}
+
+.image-gallery-bullets .image-gallery-bullet:hover {
+    background: var(--primary-main);
+    border-color: var(--primary-main);
 }
 
 /*@media (prefers-color-scheme: dark) {*/

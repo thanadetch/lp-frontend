@@ -2,37 +2,42 @@
 
 import {Property} from "@/app/types/Property";
 import {Card, Carousel, Divider, Flex, Skeleton, Typography} from "antd";
-import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import React from "react";
 import {FaBath, FaBed, FaHouse} from "react-icons/fa6";
-import {getImageUrl} from "@/app/utils/imageUtils";
+import {useRouter} from "@/lib/navigation";
+import {IoLocationOutline} from "react-icons/io5";
 
 const {Title, Paragraph, Text, Link} = Typography;
 
 interface PropertyCardProps {
+    id?: number;
     item?: Property;
     skeleton?: boolean;
 }
 
-export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
-    const onChange = (currentSlide: number) => {
-        console.log(currentSlide);
+export const PropertyCard = ({id, item, skeleton}: PropertyCardProps) => {
+    const router = useRouter();
+
+    const clickHandler = () => {
+        router.push(`/property/${id}`);
     };
 
     return (
         <Card
-            className={"w-full overflow-hidden shadow-md hover:cursor-pointer hover:scale-105 transition duration-300"}
+
+            className={"w-full overflow-hidden shadow-md"}
             bodyStyle={{
                 background: "rgba(17, 24, 39, 0.01)"
             }}
             cover={skeleton ?
                 <Skeleton.Image active className={"!w-full !h-[240px] !md:h-[310px] !rounded-none"}/> : (
-                    <Carousel className={"h-[240px] md:h-[310px]"} afterChange={onChange}>
+                    <Carousel className={"h-[240px] md:h-[310px]"}>
                         {item?.images?.data?.map((image, index) => (
-                            <div key={image.id} className={"relative w-full h-[240px] md:h-[310px]"}>
+                            <div onClick={clickHandler} key={image.id}
+                                 className={"relative w-full h-[240px] md:h-[310px] hover:cursor-pointer"}>
                                 <Image src={image.attributes?.url} alt={"logo"} fill
-                                       placeholder={'blur'}
+                                       placeholder={"blur"}
                                        sizes={"100%"}
                                        blurDataURL={image.attributes.formats?.thumbnail?.url}
                                        className={"object-cover"}/>
@@ -41,7 +46,7 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
                     </Carousel>
                 )}
         >
-            <Typography>
+            <Typography onClick={clickHandler} className={" hover:cursor-pointer"}>
                 {skeleton ? <Skeleton active paragraph={{rows: 0}}/> :
                     <Title level={3}>
                         {item?.name}
@@ -49,9 +54,10 @@ export const PropertyCard = ({item, skeleton}: PropertyCardProps) => {
                 <Divider className={"!my-4"}/>
                 {skeleton ? <Skeleton active paragraph={{rows: 1}}/> :
                     <div className={"flex flex-col gap-2"}>
-                        <div className={"text-base"}>
+                        <Flex align={"center"} gap={"small"} className={"text-base"}>
+                            <IoLocationOutline/>
                             {item?.subCode.data.attributes.name}
-                        </div>
+                        </Flex>
                         <div className={"text-lg font-semibold"}>
                             ฿{item?.price?.toLocaleString("en")}/month
                         </div>

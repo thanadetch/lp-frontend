@@ -1,3 +1,5 @@
+"use client";
+
 import {AutoComplete, Button, Card, Input, Spin} from "antd";
 import React, {useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
@@ -5,16 +7,16 @@ import {getKeyword} from "@/app/services/keyword";
 import {useRouter} from "@/lib/navigation";
 
 interface SearchPropertyProps {
-    type: string
+    type: string;
 }
 
 export const SearchProperty = ({type}: SearchPropertyProps) => {
-    const router = useRouter()
+    const router = useRouter();
     const [options, setOptions] = useState<{ id: string, label: string, value: string }[]>([]);
     const [value, setValue] = useState<string>();
 
-    const clickSearchHandler = async () => {
-        router.push(`/${type}/${value?.toLowerCase() || ''}`)
+    const clickSearchHandler = () => {
+        router.push(`/${type}/${value?.toLowerCase() || ""}`);
     };
 
     const onSelect = (data: string, option: { id: string, label: string, value: string }) => {

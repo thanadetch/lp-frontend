@@ -25,7 +25,7 @@ const useProperties = (propertiesFilters: PropertiesFilters, pagination: Paginat
     );
 
     return {
-        data,
+        data: data?.data,
         isLoading,
     };
 };

@@ -13,8 +13,6 @@ interface PropertyListProps {
 }
 
 export const PropertyList = ({codeId, type}: PropertyListProps) => {
-    console.log(codeId);
-    console.log(type);
     const [pagination, setPagination] = useState<Pagination>({
         page: 1,
         pageSize: 10
@@ -59,7 +57,7 @@ export const PropertyList = ({codeId, type}: PropertyListProps) => {
                 >
                     <div className={"grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}>
                         {properties.map((property, index) =>
-                            <PropertyCard key={index} item={property.attributes}/>
+                            <PropertyCard key={index} id={property.id} item={property.attributes}/>
                         )}
                     </div>
 
