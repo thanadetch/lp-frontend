@@ -8,6 +8,7 @@ import theme from "@/theme/themeConfig";
 import {ConfigProvider} from "antd";
 import React from "react";
 import {NavBar} from "../components/NavBar/NavBar";
+import StyledComponentsRegistry from "@/lib/Registry";
 
 const locales = ["th", "en"];
 const inter = Inter({
@@ -36,11 +37,13 @@ export default function RootLayout({
         <body className={inter.className}>
         <AntdRegistry>
             <ConfigProvider theme={theme}>
-                <NavBar/>
-                <div className={"min-h-[calc(100vh-242px)]"}>
-                    {children}
-                </div>
-                <Footer/>
+                <StyledComponentsRegistry>
+                    <NavBar/>
+                    <div className={"min-h-[calc(100vh-242px)]"}>
+                        {children}
+                    </div>
+                    <Footer/>
+                </StyledComponentsRegistry>
             </ConfigProvider>
         </AntdRegistry>
         </body>

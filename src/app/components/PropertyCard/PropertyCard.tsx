@@ -7,16 +7,15 @@ import React from "react";
 import {FaBath, FaBed, FaHouse} from "react-icons/fa6";
 import {useRouter} from "@/lib/navigation";
 import {IoLocationOutline} from "react-icons/io5";
-
-const {Title, Paragraph, Text, Link} = Typography;
+import styled from "styled-components";
 
 interface PropertyCardProps {
     id?: number;
     item?: Property;
-    skeleton?: boolean;
+    loading?: boolean;
 }
 
-export const PropertyCard = ({id, item, skeleton}: PropertyCardProps) => {
+export const PropertyCard = ({id, item, loading = false}: PropertyCardProps) => {
     const router = useRouter();
 
     const clickHandler = () => {
@@ -24,35 +23,34 @@ export const PropertyCard = ({id, item, skeleton}: PropertyCardProps) => {
     };
 
     return (
-        <Card
-
-            className={"w-full overflow-hidden shadow-md"}
-            bodyStyle={{
-                background: "rgba(17, 24, 39, 0.01)"
-            }}
-            cover={skeleton ?
-                <Skeleton.Image active className={"!w-full !h-[240px] !md:h-[310px] !rounded-none"}/> : (
-                    <Carousel className={"h-[240px] md:h-[310px]"}>
-                        {item?.images?.data?.map((image, index) => (
-                            <div onClick={clickHandler} key={image.id}
-                                 className={"relative w-full h-[240px] md:h-[310px] hover:cursor-pointer"}>
-                                <Image src={image.attributes?.url} alt={"logo"} fill
-                                       placeholder={"blur"}
-                                       sizes={"100%"}
-                                       blurDataURL={image.attributes.formats?.thumbnail?.url}
-                                       className={"object-cover"}/>
-                            </div>
-                        ))}
-                    </Carousel>
-                )}
+        <Card className={"w-full overflow-hidden shadow-md"}
+              bodyStyle={{
+                  background: "rgba(17, 24, 39, 0.01)"
+              }}
+              cover={loading ?
+                  <Skeleton.Image active className={"!w-full !h-[240px] !rounded-none"}/> : (
+                      <Carousel className={"h-[240px]"}>
+                          {item?.images?.data?.map((image, index) => (
+                              <div onClick={clickHandler} key={image.id}
+                                   className={"relative w-full h-[240px] hover:cursor-pointer"}>
+                                  <Image src={image.attributes?.url} alt={"logo"} fill
+                                         placeholder={"blur"}
+                                         sizes={"100%"}
+                                         blurDataURL={image.attributes.formats?.thumbnail?.url}
+                                         className={"object-cover"}/>
+                              </div>
+                          ))}
+                      </Carousel>
+                  )}
         >
             <Typography onClick={clickHandler} className={" hover:cursor-pointer"}>
-                {skeleton ? <Skeleton active paragraph={{rows: 0}}/> :
-                    <Title level={3}>
+                <SkeletonWrapper loading={loading} paragraph={{rows: 0}}>
+                    <div className={"text-2xl font-semibold"}>
                         {item?.name}
-                    </Title>}
+                    </div>
+                </SkeletonWrapper>
                 <Divider className={"!my-4"}/>
-                {skeleton ? <Skeleton active paragraph={{rows: 1}}/> :
+                <SkeletonWrapper loading={loading} paragraph={{rows: 1}}>
                     <div className={"flex flex-col gap-2"}>
                         <Flex align={"center"} gap={"small"} className={"text-base"}>
                             <IoLocationOutline/>
@@ -62,10 +60,10 @@ export const PropertyCard = ({id, item, skeleton}: PropertyCardProps) => {
                             ฿{item?.price?.toLocaleString("en")}/month
                         </div>
                     </div>
-                }
+                </SkeletonWrapper>
 
                 <Divider className={"!my-4 "}/>
-                {skeleton ? <Skeleton active paragraph={{rows: 1}}/> :
+                <SkeletonWrapper loading={loading} paragraph={{rows: 1}}>
                     <div className={"grid grid-cols-2 gap-2"}>
                         <Flex align={"center"} gap={"small"}>
                             <FaBed/>
@@ -80,8 +78,20 @@ export const PropertyCard = ({id, item, skeleton}: PropertyCardProps) => {
                             {item?.sqm} sq.m
                         </Flex>
                     </div>
-                }
+                </SkeletonWrapper>
             </Typography>
         </Card>
     );
 };
+
+const SkeletonWrapper = styled(Skeleton)`
+    .ant-skeleton-paragraph {
+        margin: 0 !important;
+        margin-top: 20px !important;
+
+        & li {
+            margin: 0 !important;
+
+        }
+    }
+`
