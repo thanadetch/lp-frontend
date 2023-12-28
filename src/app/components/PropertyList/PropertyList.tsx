@@ -1,4 +1,3 @@
-import InfiniteScroll from "react-infinite-scroll-component";
 import {PropertyCard} from "@/app/components/PropertyCard/PropertyCard";
 import React, {useEffect, useState} from "react";
 import {IPagination} from "@/app/types/Pagination";
