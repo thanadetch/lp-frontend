@@ -1,11 +1,13 @@
 "use client";
 
-import {AutoComplete, Button, Card, Input, Spin} from "antd";
+import {AutoComplete, Button, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import {getKeyword} from "@/app/services/keyword";
 import {useRouter} from "@/lib/navigation";
 import {ListingType} from "@/app/types/ListingType";
+import {IoLocationOutline} from "react-icons/io5";
+import {DefaultOptionType} from "rc-select/lib/Select";
 
 interface SearchPropertyProps {
     listingType: ListingType;
@@ -13,7 +15,7 @@ interface SearchPropertyProps {
 
 export const SearchProperty = ({listingType}: SearchPropertyProps) => {
     const router = useRouter();
-    const [options, setOptions] = useState<{ id: string, label: string, value: string }[]>([]);
+    const [options, setOptions] = useState<DefaultOptionType[]>([]);
     const [value, setValue] = useState<string>();
 
 
@@ -21,7 +23,7 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         router.push(`/${listingType}/${value?.toLowerCase() || ""}`);
     };
 
-    const onSelect = (data: string, option: { id: string, label: string, value: string }) => {
+    const onSelect = (data: string, option: DefaultOptionType) => {
         setValue(option.id);
     };
 
@@ -29,7 +31,11 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         const response = await getKeyword(text);
         setOptions(response.data.data.map((item) => ({
             id: item.attributes.code.data.attributes.codeId,
-            label: item.attributes.wordEn,
+            label: (
+                <div className={"flex flex-row gap-2 items-center"}>
+                    <IoLocationOutline/> {item.attributes.wordEn}
+                </div>
+            ),
             value: item.attributes.wordEn
         })));
     };
