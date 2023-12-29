@@ -1,26 +1,10 @@
-"use client";
-import {SearchProperty} from "@/app/components/SearchProperty/SearchProperty";
-import {Card, Tabs, TabsProps} from "antd";
-import React, {useEffect} from "react";
-import {ListingType} from "@/app/types/ListingType";
+import React from "react";
+import {SearchPropertyTab} from "@/app/components/SearchProperty/SearchPropertyTab";
 
 export const Hero = () => {
-    const items: TabsProps["items"] = [
-        {
-            key: "1",
-            label: "Rent",
-            children: <SearchProperty listingType={ListingType.rent}/>
-        },
-        {
-            key: "2",
-            label: "Buy",
-            children: <SearchProperty listingType={ListingType.sell}/>
-        },
-    ];
 
     return (
         <>
-
             <div className="hero h-[800px]" style={{backgroundImage: "url(/home-hero-desktop.webp)"}}>
                 <div className="hero-overlay bg-opacity-50"></div>
                 <div className="hero-content text-center text-neutral-content">
@@ -29,9 +13,7 @@ export const Hero = () => {
                         <p className="mb-5">Find your home, condo, commercial space or investment opportunity with us!
                             Life
                             Property - where Dreams find a Home.</p>
-                        <Card className={"max-w-[900px] w-full "} bodyStyle={{padding: "16px", paddingTop: "0"}}>
-                            <Tabs defaultActiveKey="1" items={items} size={"large"} centered/>
-                        </Card>
+                        <SearchPropertyTab/>
                     </div>
                 </div>
             </div>

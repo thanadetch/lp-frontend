@@ -9,6 +9,7 @@ import {ConfigProvider} from "antd";
 import React from "react";
 import {NavBar} from "../components/NavBar/NavBar";
 import StyledComponentsRegistry from "@/lib/Registry";
+import {NextIntlClientProvider, useMessages} from "next-intl";
 
 const locales = ["th", "en"];
 const inter = Inter({
@@ -29,6 +30,8 @@ export default function RootLayout({
     children: React.ReactNode,
     params: { locale: string }
 }) {
+    const messages = useMessages();
+
     // Validate that the incoming `locale` parameter is valid
     if (!locales.includes(locale as any)) notFound();
 
@@ -38,11 +41,13 @@ export default function RootLayout({
         <AntdRegistry>
             <ConfigProvider theme={theme}>
                 <StyledComponentsRegistry>
-                    <NavBar/>
-                    <div className={"min-h-[calc(100vh-242px)]"}>
-                        {children}
-                    </div>
-                    <Footer/>
+                    <NextIntlClientProvider messages={messages}>
+                        <NavBar locale={locale}/>
+                        <div className={"min-h-[calc(100vh-242px)]"}>
+                            {children}
+                        </div>
+                        <Footer/>
+                    </NextIntlClientProvider>
                 </StyledComponentsRegistry>
             </ConfigProvider>
         </AntdRegistry>

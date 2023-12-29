@@ -1,5 +1,7 @@
 {
-  "Index": {
-    "title": "Hello world!"
+  "Home": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "searchNow": "Search now!"
   }
 }

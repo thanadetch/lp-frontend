@@ -8,12 +8,14 @@ import {useRouter} from "@/lib/navigation";
 import {ListingType} from "@/app/types/ListingType";
 import {IoLocationOutline} from "react-icons/io5";
 import {DefaultOptionType} from "rc-select/lib/Select";
+import {useTranslations} from "next-intl";
 
 interface SearchPropertyProps {
     listingType: ListingType;
 }
 
 export const SearchProperty = ({listingType}: SearchPropertyProps) => {
+    const t = useTranslations("Home");
     const router = useRouter();
     const [options, setOptions] = useState<DefaultOptionType[]>([]);
     const [value, setValue] = useState<string>();
@@ -54,7 +56,7 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
             >
                 <Input size={"large"} placeholder={"Location"} prefix={<SearchOutlined/>}/>
             </AutoComplete>
-            <Button size={"large"} type="primary" onClick={clickSearchHandler}>Search now!</Button>
+            <Button size={"large"} type="primary" onClick={clickSearchHandler}>{t('searchNow')}</Button>
         </div>
 
     );
