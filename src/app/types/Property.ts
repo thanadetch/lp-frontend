@@ -6,14 +6,23 @@ export interface Property {
     bed: number;
     bath: number;
     sqm: number;
-    price: number;
-    salePrice: null;
+    salePrice: number;
     ownerName: string;
-    call: string;
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
+    ownerPhoneNo: string;
+    unitNo: string;
+    floor: string;
+    isPetFriendly: boolean;
+    ownerEmail: string;
+    ownerLineId: string;
+    propertyType: string;
+    listingType: string;
+    postBy: string;
+    rentalPrice: number;
+    propertyCode: string;
     subCode: CommonResponse<SubCode>;
-    images: CommonResponses<Images>
+    images: CommonResponses<Images>;
 }
 

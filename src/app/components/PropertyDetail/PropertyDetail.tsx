@@ -6,6 +6,8 @@ import {IoLocationOutline} from "react-icons/io5";
 import ImageGallery from "react-image-gallery";
 import {ContactForm} from "@/app/components/ContactForm/ContactForm";
 import {Property} from "@/app/types/Property";
+import {PropertyDetailBadge} from "@/app/components/PropertyDetail/PropertyDetailBadge";
+import {MdOutlinePets} from "react-icons/md";
 
 interface PropertyDetailProps {
     property: Property;
@@ -18,7 +20,7 @@ export const PropertyDetail = ({property}: PropertyDetailProps) => {
     }));
 
     return (
-        <div className={'flex flex-col lg:flex-row gap-8'}>
+        <div className={"flex flex-col lg:flex-row gap-8"}>
             <div className={"flex flex-col gap-8"}>
                 <div>
                     <ImageGallery items={images} showBullets showPlayButton={false}/>
@@ -34,21 +36,13 @@ export const PropertyDetail = ({property}: PropertyDetailProps) => {
                                 {property?.subCode.data.attributes.name}
                             </div>
                             <div className={"text-2xl font-semibold"}>
-                                ฿ {property?.price?.toLocaleString("en")}/month
+                                ฿ {property?.rentalPrice?.toLocaleString("en")}/month
                             </div>
                             <div className={"flex flex-row gap-x-4 gap-y-2 flex-wrap"}>
-                                <div className={"badge badge-outline p-4 flex flex-row items-center gap-2"}>
-                                    <FaBed/>
-                                    {property?.bed} Bedroom
-                                </div>
-                                <div className={"badge badge-outline p-4 flex flex-row items-center gap-2"}>
-                                    <FaBath/>
-                                    {property?.bath} Bathroom
-                                </div>
-                                <div className={"badge badge-outline p-4  flex flex-row items-center gap-2"}>
-                                    <FaHouse/>
-                                    {property?.sqm} sq.m
-                                </div>
+                                <PropertyDetailBadge icon={<FaBed/>} label={`${property?.bed} Bedroom`}/>
+                                <PropertyDetailBadge icon={<FaBath/>} label={`${property?.bath} Bathroom`}/>
+                                <PropertyDetailBadge icon={<FaHouse/>} label={`${property?.sqm} sq.m`}/>
+                                {property.isPetFriendly && <PropertyDetailBadge icon={<MdOutlinePets/>} label={`Pet friendly`}/>}
                             </div>
                         </div>
                         <div className={"flex flex-col gap-2"}>

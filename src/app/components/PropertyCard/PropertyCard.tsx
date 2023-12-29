@@ -8,6 +8,8 @@ import {FaBath, FaBed, FaHouse} from "react-icons/fa6";
 import {useRouter} from "@/lib/navigation";
 import {IoLocationOutline} from "react-icons/io5";
 import styled from "styled-components";
+import {PropertyBadge} from "@/app/components/PropertyCard/PropertyBadge";
+import {MdOutlinePets} from "react-icons/md";
 
 interface PropertyCardProps {
     id?: number;
@@ -57,7 +59,7 @@ export const PropertyCard = ({id, item, loading = false}: PropertyCardProps) => 
                             {item?.subCode.data.attributes.name}
                         </Flex>
                         <div className={"text-lg font-semibold"}>
-                            ฿{item?.price?.toLocaleString("en")}/month
+                            ฿{item?.rentalPrice?.toLocaleString("en")}/month
                         </div>
                     </div>
                 </SkeletonWrapper>
@@ -65,18 +67,10 @@ export const PropertyCard = ({id, item, loading = false}: PropertyCardProps) => 
                 <Divider className={"!my-4 "}/>
                 <SkeletonWrapper loading={loading} paragraph={{rows: 1}}>
                     <div className={"grid grid-cols-2 gap-2"}>
-                        <Flex align={"center"} gap={"small"}>
-                            <FaBed/>
-                            {item?.bed} Bedroom
-                        </Flex>
-                        <Flex align={"center"} gap={"small"}>
-                            <FaBath/>
-                            {item?.bath} Bathroom
-                        </Flex>
-                        <Flex align={"center"} gap={"small"}>
-                            <FaHouse/>
-                            {item?.sqm} sq.m
-                        </Flex>
+                        <PropertyBadge icon={<FaBed/>} label={`${item?.bed} Bedroom`}/>
+                        <PropertyBadge icon={<FaBath/>} label={`${item?.bath} Bathroom`}/>
+                        <PropertyBadge icon={<FaHouse/>} label={`${item?.sqm} sq.m`}/>
+                        {item?.isPetFriendly && <PropertyBadge icon={<MdOutlinePets/>} label={"Pet friendly"}/>}
                     </div>
                 </SkeletonWrapper>
             </Typography>
@@ -94,4 +88,4 @@ const SkeletonWrapper = styled(Skeleton)`
 
         }
     }
-`
+`;
