@@ -8,12 +8,14 @@ import {ContactForm} from "@/app/components/ContactForm/ContactForm";
 import {Property} from "@/app/types/Property";
 import {PropertyDetailBadge} from "@/app/components/PropertyDetail/PropertyDetailBadge";
 import {MdOutlinePets} from "react-icons/md";
+import {ListingType} from "@/app/types/ListingType";
 
 interface PropertyDetailProps {
     property: Property;
+    listingType: ListingType;
 }
 
-export const PropertyDetail = ({property}: PropertyDetailProps) => {
+export const PropertyDetail = ({property, listingType}: PropertyDetailProps) => {
     const images = property.images.data.map((image) => ({
         original: image.attributes.url,
         thumbnail: image.attributes.formats.thumbnail.url,
@@ -35,9 +37,17 @@ export const PropertyDetail = ({property}: PropertyDetailProps) => {
                                 <IoLocationOutline/>
                                 {property?.subCode.data.attributes.name}
                             </div>
-                            <div className={"text-2xl font-semibold"}>
-                                ฿ {property?.rentalPrice?.toLocaleString("en")}/month
-                            </div>
+                            {
+                                listingType === ListingType.rent ? (
+                                    <div className={"text-2xl font-semibold"}>
+                                        ฿ {property?.rentalPrice?.toLocaleString("en")}/month
+                                    </div>
+                                ) : (
+                                    <div className={"text-2xl font-semibold"}>
+                                        ฿{property?.salePrice?.toLocaleString("en")}
+                                    </div>
+                                )
+                            }
                             <div className={"flex flex-row gap-x-4 gap-y-2 flex-wrap"}>
                                 <PropertyDetailBadge icon={<FaBed/>} label={`${property?.bed} Bedroom`}/>
                                 <PropertyDetailBadge icon={<FaBath/>} label={`${property?.bath} Bathroom`}/>

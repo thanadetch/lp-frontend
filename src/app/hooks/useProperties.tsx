@@ -1,15 +1,15 @@
-import useSWR from "swr";
 import {getProperties} from "@/app/services/property";
 import {IPagination} from "@/app/types/Pagination";
 import useSWRImmutable from "swr/immutable";
+import {ListingType} from "@/app/types/ListingType";
 
 export interface PropertiesFilters {
     codeId?: string,
-    type: string
+    listingType: ListingType
 }
 
 const propertiesKey = (propertiesFilters: PropertiesFilters, pagination: IPagination) => {
-    return [propertiesFilters.codeId, propertiesFilters.type, pagination.page, pagination.pageSize];
+    return [propertiesFilters.codeId, propertiesFilters.listingType, pagination.page, pagination.pageSize];
 };
 
 const useProperties = (propertiesFilters: PropertiesFilters, pagination: IPagination) => {

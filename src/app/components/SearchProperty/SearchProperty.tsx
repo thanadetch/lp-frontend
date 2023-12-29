@@ -5,19 +5,20 @@ import React, {useEffect, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import {getKeyword} from "@/app/services/keyword";
 import {useRouter} from "@/lib/navigation";
+import {ListingType} from "@/app/types/ListingType";
 
 interface SearchPropertyProps {
-    type: string;
+    listingType: ListingType;
 }
 
-export const SearchProperty = ({type}: SearchPropertyProps) => {
+export const SearchProperty = ({listingType}: SearchPropertyProps) => {
     const router = useRouter();
     const [options, setOptions] = useState<{ id: string, label: string, value: string }[]>([]);
     const [value, setValue] = useState<string>();
 
 
     const clickSearchHandler = () => {
-        router.push(`/${type}/${value?.toLowerCase() || ""}`);
+        router.push(`/${listingType}/${value?.toLowerCase() || ""}`);
     };
 
     const onSelect = (data: string, option: { id: string, label: string, value: string }) => {

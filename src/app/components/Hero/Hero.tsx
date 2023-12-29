@@ -2,18 +2,19 @@
 import {SearchProperty} from "@/app/components/SearchProperty/SearchProperty";
 import {Card, Tabs, TabsProps} from "antd";
 import React, {useEffect} from "react";
+import {ListingType} from "@/app/types/ListingType";
 
 export const Hero = () => {
     const items: TabsProps["items"] = [
         {
             key: "1",
             label: "Rent",
-            children: <SearchProperty type={'rentals'}/>
+            children: <SearchProperty listingType={ListingType.rent}/>
         },
         {
             key: "2",
             label: "Buy",
-            children: <SearchProperty type={'sales'}/>
+            children: <SearchProperty listingType={ListingType.sell}/>
         },
     ];
 

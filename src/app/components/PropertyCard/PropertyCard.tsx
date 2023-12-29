@@ -10,18 +10,21 @@ import {IoLocationOutline} from "react-icons/io5";
 import styled from "styled-components";
 import {PropertyBadge} from "@/app/components/PropertyCard/PropertyBadge";
 import {MdOutlinePets} from "react-icons/md";
+import {ListingType} from "@/app/types/ListingType";
+import * as changeCase from "change-case";
 
 interface PropertyCardProps {
     id?: number;
     item?: Property;
     loading?: boolean;
+    listingType?: ListingType;
 }
 
-export const PropertyCard = ({id, item, loading = false}: PropertyCardProps) => {
+export const PropertyCard = ({id, item, loading = false, listingType}: PropertyCardProps) => {
     const router = useRouter();
 
     const clickHandler = () => {
-        router.push(`/property/${id}`);
+        router.push(`/property/${listingType}/${item?.propertyCode?.toLowerCase()}/${changeCase.kebabCase(item?.name || '')}`);
     };
 
     return (
@@ -58,9 +61,17 @@ export const PropertyCard = ({id, item, loading = false}: PropertyCardProps) => 
                             <IoLocationOutline/>
                             {item?.subCode.data.attributes.name}
                         </Flex>
-                        <div className={"text-lg font-semibold"}>
-                            ฿{item?.rentalPrice?.toLocaleString("en")}/month
-                        </div>
+                        {
+                            listingType === ListingType.rent ? (
+                                <div className={"text-lg font-semibold"}>
+                                    ฿{item?.rentalPrice?.toLocaleString("en")}/month
+                                </div>
+                            ) : (
+                                <div className={"text-lg font-semibold"}>
+                                    ฿{item?.salePrice?.toLocaleString("en")}
+                                </div>
+                            )
+                        }
                     </div>
                 </SkeletonWrapper>
 

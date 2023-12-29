@@ -5,14 +5,15 @@ import {Datum} from "@/app/types/strapi";
 import {Property} from "@/app/types/Property";
 import {getProperties} from "@/app/services/property";
 import {Pagination} from "antd";
+import {ListingType} from "@/app/types/ListingType";
 
 interface PropertyListProps {
     codeId?: string,
-    type: string,
+    listingType: ListingType,
     local: string,
 }
 
-export const PropertyList = ({codeId, type}: PropertyListProps) => {
+export const PropertyList = ({codeId, listingType}: PropertyListProps) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [pagination, setPagination] = useState<IPagination>({
         page: 1,
@@ -24,7 +25,7 @@ export const PropertyList = ({codeId, type}: PropertyListProps) => {
     const fetchProperties = async () => {
         try {
             setLoading(true);
-            const res = await getProperties({codeId: codeId?.toUpperCase(), type}, pagination);
+            const res = await getProperties({codeId: codeId?.toUpperCase(), listingType}, pagination);
             setProperties(prvState => res.data?.data);
             setTotal(res.data?.meta?.pagination?.total);
         } finally {
@@ -34,7 +35,7 @@ export const PropertyList = ({codeId, type}: PropertyListProps) => {
 
     useEffect(() => {
         fetchProperties();
-    }, [codeId, type, pagination]);
+    }, [codeId, listingType, pagination]);
 
     const fetchMoreData = async () => {
         setPagination(prevState => ({...prevState, page: prevState.page + 1}));
@@ -47,7 +48,7 @@ export const PropertyList = ({codeId, type}: PropertyListProps) => {
                     {loading ? new Array(12).fill('').map((_, index) =>
                         <PropertyCard key={index} loading />
                     ): properties.map((property, index) =>
-                        <PropertyCard key={index} id={property.id} item={property.attributes}/>
+                        <PropertyCard key={index} id={property.id} item={property.attributes} listingType={listingType}/>
                     )}
                 </div>
                 <Pagination defaultCurrent={1}

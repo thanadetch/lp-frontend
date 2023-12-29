@@ -1,5 +1,6 @@
 import {SubCode} from "@/app/types/code";
 import {CommonResponse, CommonResponses, Images} from "@/app/types/strapi";
+import {ListingType} from "@/app/types/ListingType";
 
 export interface Property {
     name: string;
@@ -18,7 +19,7 @@ export interface Property {
     ownerEmail: string;
     ownerLineId: string;
     propertyType: string;
-    listingType: string;
+    listingType: ListingType;
     postBy: string;
     rentalPrice: number;
     propertyCode: string;
