@@ -10,7 +10,7 @@ const PropertyDetailPage = async ({params}: {
 
     return (
         <div className={"container mx-auto px-4 py-12"}>
-            <PropertyDetail id={data.data.id} property={data.data.attributes} listingType={params.listingType}/>
+            <PropertyDetail  id={data.data.id} property={data.data.attributes} listingType={params.listingType}/>
         </div>
     );
 };

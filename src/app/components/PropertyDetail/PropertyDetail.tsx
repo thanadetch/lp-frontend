@@ -11,11 +11,12 @@ import {MdOutlinePets} from "react-icons/md";
 import {ListingType} from "@/app/types/listingType";
 
 interface PropertyDetailProps {
+    id: number;
     property: Property;
     listingType: ListingType;
 }
 
-export const PropertyDetail = ({property, listingType}: PropertyDetailProps) => {
+export const PropertyDetail = ({id, property, listingType}: PropertyDetailProps) => {
     const images = property.images.data.map((image) => ({
         original: image.attributes.url,
         thumbnail: image.attributes.formats.thumbnail.url,
@@ -52,7 +53,8 @@ export const PropertyDetail = ({property, listingType}: PropertyDetailProps) => 
                                 <PropertyDetailBadge icon={<FaBed/>} label={`${property?.bed} Bedroom`}/>
                                 <PropertyDetailBadge icon={<FaBath/>} label={`${property?.bath} Bathroom`}/>
                                 <PropertyDetailBadge icon={<FaHouse/>} label={`${property?.sqm} sq.m`}/>
-                                {property.isPetFriendly && <PropertyDetailBadge icon={<MdOutlinePets/>} label={`Pet friendly`}/>}
+                                {property.isPetFriendly &&
+                                    <PropertyDetailBadge icon={<MdOutlinePets/>} label={`Pet friendly`}/>}
                             </div>
                         </div>
                         <div className={"flex flex-col gap-2"}>
@@ -73,7 +75,7 @@ export const PropertyDetail = ({property, listingType}: PropertyDetailProps) => 
 
             </div>
             <div className={"flex-[0_1_440px] sticky top-[104px] self-auto md:self-center lg:self-start"}>
-                <ContactForm/>
+                <ContactForm propertyId={id} listingType={listingType}/>
             </div>
         </div>
 
