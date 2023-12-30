@@ -1,7 +1,7 @@
 import {getProperties} from "@/app/services/property";
-import {IPagination} from "@/app/types/Pagination";
+import {IPagination} from "@/app/types/pagination";
 import useSWRImmutable from "swr/immutable";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 
 export interface PropertiesFilters {
     codeId?: string,

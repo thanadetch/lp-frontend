@@ -1,6 +1,6 @@
 "use client";
 
-import {Property} from "@/app/types/Property";
+import {Property} from "@/app/types/property";
 import {Card, Carousel, Divider, Flex, Skeleton, Typography} from "antd";
 import Image from "next/image";
 import React from "react";
@@ -10,7 +10,7 @@ import {IoLocationOutline} from "react-icons/io5";
 import styled from "styled-components";
 import {PropertyBadge} from "@/app/components/PropertyCard/PropertyBadge";
 import {MdOutlinePets} from "react-icons/md";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 import * as changeCase from "change-case";
 
 interface PropertyCardProps {

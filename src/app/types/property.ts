@@ -1,6 +1,6 @@
 import {SubCode} from "@/app/types/code";
 import {CommonResponse, CommonResponses, Images} from "@/app/types/strapi";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 
 export interface Property {
     name: string;

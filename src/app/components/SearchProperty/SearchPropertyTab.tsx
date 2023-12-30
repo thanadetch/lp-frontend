@@ -3,7 +3,7 @@
 import {Card, Tabs, TabsProps} from "antd";
 import React from "react";
 import {SearchProperty} from "@/app/components/SearchProperty/SearchProperty";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 import {useTranslations} from "next-intl";
 
 export const SearchPropertyTab = () => {

@@ -5,10 +5,10 @@ import React from "react";
 import {IoLocationOutline} from "react-icons/io5";
 import ImageGallery from "react-image-gallery";
 import {ContactForm} from "@/app/components/ContactForm/ContactForm";
-import {Property} from "@/app/types/Property";
+import {Property} from "@/app/types/property";
 import {PropertyDetailBadge} from "@/app/components/PropertyDetail/PropertyDetailBadge";
 import {MdOutlinePets} from "react-icons/md";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 
 interface PropertyDetailProps {
     property: Property;

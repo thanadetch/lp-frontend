@@ -1,7 +1,7 @@
 import React from "react";
 import {PropertyDetail} from "@/app/components/PropertyDetail/PropertyDetail";
 import {getProperty} from "@/app/services/property";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 
 const PropertyDetailPage = async ({params}: {
     params: { locale: string, propertyCode: string, listingType: ListingType }

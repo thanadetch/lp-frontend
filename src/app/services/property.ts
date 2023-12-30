@@ -1,9 +1,9 @@
 import {baseAxios} from "@/app/services/networks";
 import {PropertiesFilters} from "@/app/hooks/useProperties";
-import {IPagination} from "@/app/types/Pagination";
+import {IPagination} from "@/app/types/pagination";
 import {CommonResponses} from "@/app/types/strapi";
-import {Property} from "@/app/types/Property";
-import {ListingType} from "@/app/types/ListingType";
+import {Property} from "@/app/types/property";
+import {ListingType} from "@/app/types/listingType";
 
 const baseUrl = "/api/properties";
 const getProperties = (filter: PropertiesFilters, pagination: IPagination) => {

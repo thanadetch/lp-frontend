@@ -1,11 +1,11 @@
 import {PropertyCard} from "@/app/components/PropertyCard/PropertyCard";
 import React, {useEffect, useState} from "react";
-import {IPagination} from "@/app/types/Pagination";
+import {IPagination} from "@/app/types/pagination";
 import {Datum} from "@/app/types/strapi";
-import {Property} from "@/app/types/Property";
+import {Property} from "@/app/types/property";
 import {getProperties} from "@/app/services/property";
 import {Pagination} from "antd";
-import {ListingType} from "@/app/types/ListingType";
+import {ListingType} from "@/app/types/listingType";
 
 interface PropertyListProps {
     codeId?: string,
