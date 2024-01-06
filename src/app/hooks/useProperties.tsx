@@ -31,6 +31,7 @@ const useProperties = (propertiesFilters: PropertiesFilters, pagination: IPagina
     return {
         data: data?.data,
         isLoading,
+        error
     };
 };
 
