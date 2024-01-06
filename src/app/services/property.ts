@@ -42,6 +42,43 @@ const getProperties = (filter: PropertiesFilters, pagination: IPagination) => {
     });
 };
 
+const getPropertiesOrderSubCode = (filter: PropertiesFilters, pagination: IPagination) => {
+    return baseAxios.get<CommonResponses<Property>>(`${baseUrl}/order-sub-code/${filter.subCodeId}`, {
+        params: {
+            filters: {
+                $and: [
+                    filter?.codeId ? {
+                        subCode: {
+                            code: {
+                                codeId: {
+                                    $eq: filter.codeId
+                                }
+                            }
+                        }
+                    } : null,
+                    {
+                        $or: [
+                            filter?.listingType ? {
+                                listingType: {
+                                    $eq: filter.listingType
+                                }
+                            } : null,
+                            {
+                                listingType: {
+                                    $eq: ListingType.rent_and_sell
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            populate: ["subCode", "subCode.code", "images"],
+            pagination
+        },
+    });
+};
+
+
 const getProperty = async (propertyCode: string, listingType?: ListingType) => {
     const res = await baseAxios.get<CommonResponses<Property>>(`${baseUrl}`, {
         params: {
@@ -80,5 +117,6 @@ const getProperty = async (propertyCode: string, listingType?: ListingType) => {
 
 export {
     getProperties,
+    getPropertiesOrderSubCode,
     getProperty
 };

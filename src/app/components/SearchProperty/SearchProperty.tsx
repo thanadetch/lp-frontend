@@ -11,7 +11,8 @@ import {DefaultOptionType} from "rc-select/lib/Select";
 import {useTranslations} from "next-intl";
 import {useParams} from "next/navigation";
 import {Locale} from "@/app/types/locale";
-import {Keyword} from "@/app/types/keywotd";
+import {Keyword, SearchType} from "@/app/types/keywotd";
+import {Datum} from "@/app/types/strapi";
 
 interface SearchPropertyProps {
     listingType: ListingType;
@@ -22,15 +23,36 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
     const t = useTranslations("Home");
     const router = useRouter();
     const [options, setOptions] = useState<DefaultOptionType[]>([]);
-    const [value, setValue] = useState<string>();
+    const [value, setValue] = useState<{ subCodeId: string, codeId: string, searchType: SearchType }>();
 
 
     const clickSearchHandler = () => {
-        router.push(`/${listingType}/${value?.toLowerCase() || ""}`);
+        switch (value?.searchType) {
+            case SearchType.CODE:
+                router.push(`/${listingType}/${value?.codeId?.toLowerCase() || ""}`);
+                break;
+            case SearchType.SUB_CODE:
+                router.push(`/${listingType}/${value?.codeId?.toLowerCase() || ""}/${value?.subCodeId?.toLowerCase() || ""}`);
+                break;
+            default:
+                if (value?.subCodeId && value?.codeId) {
+                    router.push(`/${listingType}/${value?.codeId?.toLowerCase() || ""}/${value?.subCodeId?.toLowerCase() || ""}`);
+                } else if (value?.codeId) {
+                    router.push(`/${listingType}/${value?.codeId?.toLowerCase() || ""}`);
+                } else {
+                    router.push(`/${listingType}`);
+                }
+                break;
+        }
+
     };
 
     const onSelect = (data: string, option: DefaultOptionType) => {
-        setValue(option.id);
+        setValue({
+            subCodeId: option.subCodeId,
+            codeId: option.codeId,
+            searchType: option.searchType,
+        });
     };
 
     const getWordLocale = (keyword: Keyword) => {
@@ -41,18 +63,41 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         return wordLocale[params.locale as Locale];
     };
 
-    const searchHandler = async (text: string) => {
+    const getCodeOption = (keyword: Datum<Keyword>) => {
+        const searchType = keyword.attributes.searchType;
+        const getCodeOptionValue = () => ({codeId: keyword.attributes.code.data?.attributes?.codeId});
+        const getSubCodeOptionValue = () => ({
+            subCodeId: keyword.attributes.subCode.data?.attributes?.codeId,
+            codeId: keyword.attributes.subCode.data?.attributes?.code?.data?.attributes?.codeId,
+        });
+        switch (searchType) {
+            case SearchType.CODE:
+                return getCodeOptionValue();
+            case SearchType.SUB_CODE:
+                return getSubCodeOptionValue();
+            default:
+                if (keyword.attributes?.subCode?.data) {
+                    return getSubCodeOptionValue();
+                } else if (keyword.attributes?.code?.data) {
+                    return getCodeOptionValue();
+                }
+        }
+    };
 
+    const searchHandler = async (text: string) => {
         const response = await getKeyword(text);
-        setOptions(response.data.data.map((item) => ({
-            id: item.attributes.code.data.attributes.codeId,
-            label: (
-                <div className={"flex flex-row gap-2 items-center"}>
-                    <IoLocationOutline/> {getWordLocale(item.attributes)}
-                </div>
-            ),
-            value: getWordLocale(item.attributes)
-        })));
+        setOptions(response.data.data.map((item) => {
+            return {
+                ...getCodeOption(item),
+                searchType: item.attributes?.searchType,
+                label: (
+                    <div className={"flex flex-row gap-2 items-center"}>
+                        <IoLocationOutline/> {getWordLocale(item.attributes)}
+                    </div>
+                ),
+                value: getWordLocale(item.attributes)
+            };
+        }));
     };
 
     useEffect(() => {
@@ -63,9 +108,9 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         <ConfigProvider
             theme={{
                 components: {
-                  Select: {
-                      optionLineHeight: 2.2,
-                  }
+                    Select: {
+                        optionLineHeight: 2.2,
+                    }
                 }
             }}
         >

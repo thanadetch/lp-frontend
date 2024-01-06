@@ -5,11 +5,15 @@ import {ListingType} from "@/app/types/listingType";
 
 export interface PropertiesFilters {
     codeId?: string,
+    subCodeId?: string,
     listingType: ListingType
 }
 
 const propertiesKey = (propertiesFilters: PropertiesFilters, pagination: IPagination) => {
-    return [propertiesFilters.codeId, propertiesFilters.listingType, pagination.page, pagination.pageSize];
+    return [
+        propertiesFilters.codeId, propertiesFilters.subCodeId,
+        propertiesFilters.listingType, pagination.page, pagination.pageSize
+    ];
 };
 
 const useProperties = (propertiesFilters: PropertiesFilters, pagination: IPagination) => {

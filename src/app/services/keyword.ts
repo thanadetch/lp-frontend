@@ -20,7 +20,7 @@ const getKeyword = (keyword: string) => {
                     }
                 ]
             },
-            populate: ['code']
+            populate: ['code', 'subCode', 'subCode.code']
         },
     });
 };

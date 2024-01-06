@@ -1,3 +1,5 @@
+import {CommonResponse} from "@/app/types/strapi";
+
 export interface Code {
     codeId:      string;
     createdAt:   Date;
@@ -11,5 +13,5 @@ export interface SubCode {
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
-    code?: Code;
+    code?: CommonResponse<Code>;
 }
