@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import {PropertyCard} from "@/app/components/PropertyCard/PropertyCard";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {IPagination} from "@/app/types/pagination";
 import {Datum} from "@/app/types/strapi";
 import {Property} from "@/app/types/property";
@@ -25,7 +25,7 @@ export const PropertyList = ({codeId, subCodeId, listingType}: PropertyListProps
     const [properties, setProperties] = useState<Datum<Property>[]>([]);
     const [total, setTotal] = useState<number>();
 
-    const fetchProperties = async () => {
+    const fetchProperties = useCallback(async () => {
         try {
             setLoading(true);
             if (subCodeId) {
@@ -34,26 +34,22 @@ export const PropertyList = ({codeId, subCodeId, listingType}: PropertyListProps
                     subCodeId: subCodeId?.toUpperCase(),
                     listingType
                 }, pagination);
-                setProperties(prvState => res.data?.data);
+                setProperties(res.data?.data);
                 setTotal(res.data?.meta?.pagination?.total);
             } else {
                 const res = await getProperties({codeId: codeId?.toUpperCase(), listingType}, pagination);
-                setProperties(prvState => res.data?.data);
+                setProperties(res.data?.data);
                 setTotal(res.data?.meta?.pagination?.total);
             }
 
         } finally {
             setLoading(false);
         }
-    };
+    }, [codeId, listingType, pagination, subCodeId]);
 
     useEffect(() => {
         fetchProperties();
-    }, [codeId, listingType, pagination]);
-
-    const fetchMoreData = async () => {
-        setPagination(prevState => ({...prevState, page: prevState.page + 1}));
-    };
+    }, [fetchProperties]);
 
     return (
         <div className={"container mx-auto md:p-0 flex justify-center"}>

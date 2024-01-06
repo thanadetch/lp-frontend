@@ -1,7 +1,7 @@
 "use client";
 
 import {AutoComplete, Button, ConfigProvider, Input} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import {getKeyword} from "@/app/services/keyword";
 import {useRouter} from "@/lib/navigation";
@@ -55,13 +55,13 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         });
     };
 
-    const getWordLocale = (keyword: Keyword) => {
+    const getWordLocale = useCallback((keyword: Keyword) => {
         const wordLocale = {
             [Locale.EN]: keyword.wordEn,
             [Locale.TH]: keyword.wordTh,
         };
         return wordLocale[params.locale as Locale];
-    };
+    }, [params.locale]);
 
     const getCodeOption = (keyword: Datum<Keyword>) => {
         const searchType = keyword.attributes.searchType;
@@ -84,7 +84,7 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
         }
     };
 
-    const searchHandler = async (text: string) => {
+    const searchHandler = useCallback(async (text: string) => {
         const response = await getKeyword(text);
         setOptions(response.data.data.map((item) => {
             return {
@@ -98,11 +98,11 @@ export const SearchProperty = ({listingType}: SearchPropertyProps) => {
                 value: getWordLocale(item.attributes)
             };
         }));
-    };
+    }, [getWordLocale]);
 
     useEffect(() => {
         searchHandler("");
-    }, []);
+    }, [searchHandler]);
 
     return (
         <ConfigProvider
